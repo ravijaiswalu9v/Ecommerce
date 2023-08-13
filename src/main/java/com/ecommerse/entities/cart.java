@@ -9,17 +9,15 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Admin{
+public class cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "Admin_id")
+	@Column(name = "category_id")
 	private int id;
 	
-	//changes here at 12-08-2023
-	@Column(name = "Admin_email")
-	private String email;
+	@Column(name = "category_title", length = 100, nullable = false)
+	private String title;
 	
-	@Column(name = "Admin_password")
-	private String password;
-	
+	@Column(name = "category_desc", length = 1500, nullable = false)
+	private String description;
 }

@@ -2,10 +2,7 @@ package com.ecommerse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-
-import com.ecommerse.entities.User;
-import com.ecommerse.repositories.UserRepository;
+//import com.ecomme	rse.repositories.EmployeeRepository;
 
 @SpringBootApplication
 public class EcommerceApplication {

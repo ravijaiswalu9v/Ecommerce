@@ -1,5 +1,7 @@
 package com.ecommerse.entities;
 
+import java.sql.Blob;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,28 +15,27 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name="user_id")
+	@Column(name="customer_id")
 	private int id;
 	
-	@Column(name="user_name", nullable=false, length = 100)
+	@Column(name="customer_name", nullable=false, length = 100)
 	private String name;
 	
-	@Column(name="user_email")
+	@Column(name="customer_email")
 	private String email;
 	
-	@Column(name="user_password", nullable=false, length =50)
+	@Column(name="customer_password", nullable=false, length =50)
 	private String password;
 	
-	@Column(name="user_phone", nullable=false, length =12)
+	@Column(name="customer_phone", nullable=false, length =12)
 	private String phone;
 	
-	@Column(name="user_pic")
-	private String  pic;
+	@Column(name="customer_pic", nullable = true)
+	private Blob  pic;
 	
-	@Column(name="user_address", nullable=false, length =200)
+	@Column(name="customer_address", nullable=false, length =200)
 	private String address;
-	
 }

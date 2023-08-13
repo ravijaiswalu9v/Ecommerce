@@ -1,5 +1,7 @@
 package com.ecommerse.entities;
 
+import java.sql.Blob;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,22 +17,25 @@ public class Product {
 	@Column(name = "product_id")
 	private int id;
 	
-	@Column(name = "product_title", length = 100, nullable = false)
-	private String title;
+	@Column(name = "category_id")
+	private String category;
+	
+	@Column(name = "product_name", length = 100, nullable = false)
+	private String name;
 	
 	@Column(name = "product_desc", length = 1500, nullable = false)
 	private String description;
 
-	@Column(name = "product_photo", nullable = false)
-	private String photo;
+	@Column(name = "product_photo", nullable = true)
+	private Blob photo;
 	
 	@Column(name = "product_price",length = 120, nullable = false)
 	private double price;
 	
-	@Column(name = "product_discount", nullable = false)
-	private int discount;
+	@Column(name = "product_brand", nullable = false)
+	private String brand;
 	
-	@Column(name = "product_quantity", length = 1500, nullable = false)
-	private int quantity;
+	@Column(name = "product_color", length = 1500, nullable = false)
+	private int color;
 	
 }
