@@ -1,5 +1,7 @@
 package com.ecommerse.entities;
 
+import java.sql.Blob;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,11 +17,22 @@ public class Admin{
 	@Column(name = "Admin_id")
 	private int id;
 	
-	//changes here at 12-08-2023
+	
+	//required for login  begin------>
 	@Column(name = "Admin_email")
 	private String email;
 	
 	@Column(name = "Admin_password")
 	private String password;
+	//required for login  end ------>
 	
+	//some extra info admin can set
+	@Column(name = "admin_name", length = 50)
+	private String name;
+	
+	@Column(name = "admin_pic")
+	private Blob pic;
+	
+	@Column(name = "admin_phone", length = 15)
+	private String phone;
 }

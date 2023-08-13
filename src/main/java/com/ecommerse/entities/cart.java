@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class cart {
+public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "category_id")

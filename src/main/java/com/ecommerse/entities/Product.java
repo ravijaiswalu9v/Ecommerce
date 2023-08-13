@@ -36,6 +36,9 @@ public class Product {
 	private String brand;
 	
 	@Column(name = "product_color", length = 1500, nullable = false)
-	private int color;
+	private String color;
+	
+	@Column(name = "product_quantity")
+	private int quantity;
 	
 }

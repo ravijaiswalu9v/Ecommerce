@@ -1,7 +1,5 @@
 package com.ecommerse.entities;
 
-import java.sql.Blob;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
