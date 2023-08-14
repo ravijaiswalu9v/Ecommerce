@@ -1,6 +1,7 @@
 package com.ecommerse.servicesimpl;
 
 import java.beans.JavaBean;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,58 +9,63 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ecommerse.entities.Customer;
+import com.ecommerse.models.CustomerDTO;
 import com.ecommerse.repositories.CustomerRepository;
 import com.ecommerse.services.CustomerService;
+import com.ecommerse.util.Converter;
 
 @Component
 @JavaBean // need info what this is used for
 public class CustomerServicesImpl implements CustomerService {
 
 	@Autowired
-	CustomerRepository repo;
+	CustomerRepository customerRepository;
 
-	public List<Customer> getAllCustomer() {
-		List<Customer> customer = null;
+	@Autowired
+	Converter converter;
 
-		Iterable<Customer> result = repo.findAll();
-		customer = (List<Customer>) result;
+	public  List<CustomerDTO> getAllCustomer() {
+		List<Customer> customers = customerRepository.findAll();
+		List<CustomerDTO> customerDTOs = new ArrayList<>();
 
-//		to view the data on console
-//		result.forEach(e -> {
-//			System.out.println(e);
-//			
-//		});
-
-		return customer;
+		for (Customer c : customers) {
+			customerDTOs.add(converter.convertToCustomerDTO(c));
+		}
+		return customerDTOs;
 	}
 
 	// adding the user
-	public Customer addCustomer(Customer u) {
-		return repo.save(u);
+	public CustomerDTO addCustomer(Customer u) {
+		Customer customer = customerRepository.save(u);
+		return converter.convertToCustomerDTO(customer);
 	}
 
-	public Customer getCustomerByID(int id) {
-		Optional<Customer> optional = repo.findById(id);
-		Customer customer = optional.get();
-		return customer;
+	public CustomerDTO getCustomerByID(int id) {
+		Customer customer = customerRepository.findById(id).get();
+		return converter.convertToCustomerDTO(customer);
 	}
 
-	public List<Customer> addAllCustomer(List<Customer> customers) {
-		Iterable<Customer> itr = repo.saveAll(customers);
-		return (List<Customer>) itr;
+	public List<CustomerDTO> addAllCustomer(List<Customer> customers) {
+		List<Customer> savedCustomers = customerRepository.saveAll(customers);
+		List<CustomerDTO> customerDTOs = new ArrayList<>();
+		
+		for (Customer c : savedCustomers) {
+			customerDTOs.add(converter.convertToCustomerDTO(c));
+		}
+		return customerDTOs;
 	}
 
 	public void deleteById(int id) {
-		repo.deleteById(id);
+		customerRepository.deleteById(id);
 	}
 
 	public void deleteAllCustomers() {
-		repo.deleteAll();
+		customerRepository.deleteAll();
 	}
 
-	//update a user
+	// update a user
 	public void UpdateById(int id, Customer newCustomer) {
-		Optional<Customer> optional = repo.findById(id);
+		Optional<Customer> optional = customerRepository.findById(id);
 		Customer customer = optional.get();
 		customer.setId(id);
 		customer.setName(newCustomer.getName());
@@ -68,7 +74,7 @@ public class CustomerServicesImpl implements CustomerService {
 		customer.setPassword(newCustomer.getPassword());
 		customer.setPhone(newCustomer.getPhone());
 		customer.setPic(newCustomer.getPic());
-		repo.save(customer);
+		customerRepository.save(customer);
 	}
 
 }

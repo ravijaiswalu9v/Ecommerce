@@ -21,21 +21,21 @@ public class Customer {
 	@Column(name="customer_id")
 	private int id;
 	
-	@Column(name="customer_name", nullable=false, length = 100)
+	@Column(name="customer_name", length = 50)
 	private String name;
 	
 	@Column(name="customer_email")
 	private String email;
 	
-	@Column(name="customer_password", nullable=false, length =50)
+	@Column(name="customer_password", length =50)
 	private String password;
 	
-	@Column(name="customer_phone", nullable=false, length =12)
+	@Column(name="customer_phone",  length =12)
 	private String phone;
 	
-	@Column(name="customer_pic", nullable = true)
+	@Column(name="customer_pic" )
 	private Blob  pic;
 	
-	@Column(name="customer_address", nullable=false, length =200)
+	@Column(name="customer_address",  length =200)
 	private String address;
 }
