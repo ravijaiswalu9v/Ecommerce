@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +21,6 @@ import com.ecommerse.servicesimpl.CustomerServicesImpl;
 import com.ecommerse.util.Converter;
 
 import jakarta.validation.Valid;
-import lombok.val;
 
 @RestController
 public class CustomerController {
