@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerse.entities.Customer;
 import com.ecommerse.models.CustomerDTO;
+import com.ecommerse.services.CustomerService;
 import com.ecommerse.servicesimpl.CustomerServicesImpl;
 import com.ecommerse.util.Converter;
 
@@ -26,7 +27,7 @@ import jakarta.validation.Valid;
 public class CustomerController {
 	
 	@Autowired
-	CustomerServicesImpl services;
+	CustomerService customerService;
 	
 	@Autowired
 	Converter converter;
@@ -43,59 +44,27 @@ public class CustomerController {
 		return "Hello Ravi";
 	}
 //---------------------------------------------------------
-	
-	//Read all the customers
-	@GetMapping("/customer")
-	public ResponseEntity<List<CustomerDTO>> getAllCustomer(){
-		List<CustomerDTO> allCustomer = services.getAllCustomer();
-		if(allCustomer.size()!=0)
-		return new ResponseEntity<List<CustomerDTO>>(allCustomer,HttpStatus.OK);
-		return new ResponseEntity<List<CustomerDTO>>(HttpStatus.NOT_FOUND);
+	//customer can Register
+	@PostMapping("customer/new")
+	public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody CustomerDTO customerDTO) {
+		final Customer customer = converter.covertToCustomerEntity(customerDTO);
+		return new ResponseEntity<CustomerDTO>(customerService.registerCustomer(customer),HttpStatus.OK );
 	}
 	
 	
-	// get a customer by specific id
+	// customer can see there details
 	@GetMapping("/customer/{id}")
 	public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable int id) {
-		CustomerDTO customerDTO = services.getCustomerByID(id);
+		CustomerDTO customerDTO = customerService.viewDetails(id);
 		if (customerDTO!=null) {
 			return new ResponseEntity<CustomerDTO>(customerDTO,HttpStatus.OK );
 		}
 		return new ResponseEntity<CustomerDTO>(customerDTO,HttpStatus.NOT_FOUND);
 	}
 	
-	//new customer
-	// post mapping(create) the data(customers)
-	@PostMapping("/customer")
-	public CustomerDTO addCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
-		Customer customer = converter.covertToCustomerEntity(customerDTO);
-		return services.addCustomer(customer);
-	}
-	
-	@PostMapping("/customers")
-	public List<CustomerDTO> addAllCustomer(@RequestBody List<CustomerDTO> customersDtos){
-		List<Customer> customers = new ArrayList<>();
-		for (CustomerDTO cDTO :customersDtos ) {
-			customers.add(converter.covertToCustomerEntity(cDTO));
-		}
-		return services.addAllCustomer(customers);
-	}
-	
-	//Delete a customer
-	@DeleteMapping("/customer/{id}")
-	public void deleteById(@PathVariable int id) {
-		services.deleteById(id);
-	}
-	
-	//Delete all customers
-	@DeleteMapping("/customer")
-	public void deleteAllCustomers() {
-		services.deleteAllCustomers();
-	}
-	
 	//Update customer
 	@PutMapping("/customer/{id}")
-	public void UpdateById(@PathVariable("id") int uid,@Valid @RequestBody Customer newCustomer) {
-		services.UpdateById(uid,newCustomer);
+	public void updateDetails(@PathVariable("id") int uid,@Valid @RequestBody Customer newCustomer) {
+		customerService.updateDetails(uid, newCustomer);
 	}
 }

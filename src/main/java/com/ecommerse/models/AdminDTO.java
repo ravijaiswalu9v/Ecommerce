@@ -27,6 +27,6 @@ public class AdminDTO{
 	private String name;
 	
 	private Blob pic;
-	
+	@Size(min = 10, max = 12, message = "phone number between 10 to 12 will be accepted only")
 	private String phone;
 }

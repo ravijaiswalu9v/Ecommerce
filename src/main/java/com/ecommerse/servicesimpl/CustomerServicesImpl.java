@@ -24,47 +24,22 @@ public class CustomerServicesImpl implements CustomerService {
 	@Autowired
 	Converter converter;
 
-	public  List<CustomerDTO> getAllCustomer() {
-		List<Customer> customers = customerRepository.findAll();
-		List<CustomerDTO> customerDTOs = new ArrayList<>();
-
-		for (Customer c : customers) {
-			customerDTOs.add(converter.convertToCustomerDTO(c));
-		}
-		return customerDTOs;
-	}
+	
 
 	// adding the user
-	public CustomerDTO addCustomer(Customer u) {
+	public CustomerDTO registerCustomer(Customer u) {
 		Customer customer = customerRepository.save(u);
 		return converter.convertToCustomerDTO(customer);
 	}
 
-	public CustomerDTO getCustomerByID(int id) {
+	public CustomerDTO viewDetails(int id) {
 		Customer customer = customerRepository.findById(id).get();
 		return converter.convertToCustomerDTO(customer);
 	}
 
-	public List<CustomerDTO> addAllCustomer(List<Customer> customers) {
-		List<Customer> savedCustomers = customerRepository.saveAll(customers);
-		List<CustomerDTO> customerDTOs = new ArrayList<>();
-		
-		for (Customer c : savedCustomers) {
-			customerDTOs.add(converter.convertToCustomerDTO(c));
-		}
-		return customerDTOs;
-	}
-
-	public void deleteById(int id) {
-		customerRepository.deleteById(id);
-	}
-
-	public void deleteAllCustomers() {
-		customerRepository.deleteAll();
-	}
 
 	// update a user
-	public void UpdateById(int id, Customer newCustomer) {
+	public void updateDetails(int id, Customer newCustomer) {
 		Optional<Customer> optional = customerRepository.findById(id);
 		Customer customer = optional.get();
 		customer.setId(id);
@@ -76,5 +51,7 @@ public class CustomerServicesImpl implements CustomerService {
 		customer.setPic(newCustomer.getPic());
 		customerRepository.save(customer);
 	}
+
+	
 
 }

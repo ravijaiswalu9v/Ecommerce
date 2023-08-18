@@ -25,6 +25,6 @@ public class LoginSignupController {
 	@PostMapping("customer/signup")
 	public CustomerDTO customerRegistration(@Valid @RequestBody CustomerDTO customerDTO) {
 		Customer customer = converter.covertToCustomerEntity(customerDTO);
-		return customerService.addCustomer(customer);
+		return customerService.registerCustomer(customer);
 	}
 }

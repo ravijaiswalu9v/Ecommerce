@@ -3,6 +3,7 @@ package com.ecommerse.entities;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -27,6 +28,7 @@ public class Category {
 	@Column(name = "category_desc", length = 1500)
 	private String description;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "category" ,cascade = CascadeType.PERSIST)
 	@JsonIgnoreProperties
 	private List<Product> product;

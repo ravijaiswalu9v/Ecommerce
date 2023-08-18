@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class Admin{
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Admin_id")
 	private int id;
 	
@@ -33,6 +33,6 @@ public class Admin{
 	@Column(name = "admin_pic")
 	private Blob pic;
 	
-	@Column(name = "admin_phone", length = 15)
+	@Column(name = "admin_phone", length = 12)
 	private String phone;
 }

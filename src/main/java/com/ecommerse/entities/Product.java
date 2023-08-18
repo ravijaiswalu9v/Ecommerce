@@ -2,6 +2,7 @@ package com.ecommerse.entities;
 
 import java.sql.Blob;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -43,6 +44,7 @@ public class Product {
 	@Column(name = "product_quantity")
 	private int quantity;
 	
+	@JsonBackReference
 	@JoinColumn(name = "cat_id")
 	@JsonIgnoreProperties
 	@ManyToOne(cascade = CascadeType.PERSIST)
