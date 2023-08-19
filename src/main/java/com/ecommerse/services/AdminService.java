@@ -17,24 +17,10 @@ public interface AdminService {
 	public void updateAdminDetails(int id, Admin newAdmin);
 	
 	//Admin manipulates customers
-	public List<CustomerDTO> getAllCustomer();
-	public CustomerDTO getCustomerByID(int id);
-	public String deleteCustomerById(int id);
-	public void deleteAllCustomers();
 	
 	//Admin manipulate products
-	public List<ProductDTO> getAllProducts();
-	public ProductDTO addProduct(Product product);
-	public ProductDTO getProductByID(int id);
-	public void deleteProductById(int id);
-	public void UpdateProductById(int id, Product existingProduct);
 	
 	//Admin can manipulate Categories
-	public List<CategoryDTO> getAllCategories();
-	public CategoryDTO addCategory(Category category);
-	public CategoryDTO getCategoryByID(int id);
-	public void deleteCategoryById(int id);
-	public void UpdateCategoryById(int id, Category existingCategory);
 	
 	//@Admin can keep product into category
 	public String putProductInCategory(int categoryId, int ProductId);

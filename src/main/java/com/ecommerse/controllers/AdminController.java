@@ -21,6 +21,9 @@ import com.ecommerse.models.CategoryDTO;
 import com.ecommerse.models.CustomerDTO;
 import com.ecommerse.models.ProductDTO;
 import com.ecommerse.services.AdminService;
+import com.ecommerse.services.CategoryService;
+import com.ecommerse.services.CustomerService;
+import com.ecommerse.services.ProductService;
 import com.ecommerse.util.Converter;
 
 import jakarta.validation.Valid;
@@ -31,14 +34,14 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 
-//	@Autowired
-//	CustomerService customerService;
+	@Autowired
+	CustomerService customerService;
 
-//	@Autowired
-//	ProductService productService;
-//
-//	@Autowired
-//	CategoryService categoryService;
+	@Autowired
+	ProductService productService;
+
+	@Autowired
+	CategoryService categoryService;
 
 	@Autowired
 	Converter converter;
@@ -64,7 +67,7 @@ public class AdminController {
 	// Read all the customers
 	@GetMapping("/admin/customer")
 	public ResponseEntity<List<CustomerDTO>> getAllCustomer() {
-		List<CustomerDTO> allCustomer = adminService.getAllCustomer();
+		List<CustomerDTO> allCustomer = customerService.getAllCustomer();
 		if (allCustomer.size() != 0)
 			return new ResponseEntity<List<CustomerDTO>>(allCustomer, HttpStatus.OK);
 		return new ResponseEntity<List<CustomerDTO>>(HttpStatus.NOT_FOUND);
@@ -73,7 +76,7 @@ public class AdminController {
 	// get a customer by specific id
 	@GetMapping("/admin/customer/{id}")
 	public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable int id) {
-		CustomerDTO customerDTO = adminService.getCustomerByID(id);
+		CustomerDTO customerDTO = customerService.getCustomerByID(id);
 		if (customerDTO != null) {
 			return new ResponseEntity<CustomerDTO>(customerDTO, HttpStatus.OK);
 		}
@@ -83,13 +86,13 @@ public class AdminController {
 	// Delete a customer
 	@DeleteMapping("admin/customer/{id}")
 	public String deleteById(@PathVariable int id) {
-		return adminService.deleteCustomerById(id);
+		return customerService.deleteCustomerById(id);
 	}
 
 	// Delete all customers
 	@DeleteMapping("admin/customer/danger")
 	public void deleteAllCustomers() {
-		adminService.deleteAllCustomers();
+		customerService.deleteAllCustomers();
 	}
 
 	// products handler----------------------------------------------
@@ -97,7 +100,7 @@ public class AdminController {
 	// Read all the Products
 	@GetMapping("/admin/product")
 	public ResponseEntity<List<ProductDTO>> getAllProduct() {
-		List<ProductDTO> allProduct = adminService.getAllProducts();
+		List<ProductDTO> allProduct = productService.getAllProducts();
 		if (allProduct.size() != 0)
 			return new ResponseEntity<List<ProductDTO>>(allProduct, HttpStatus.OK);
 		return new ResponseEntity<List<ProductDTO>>(HttpStatus.NOT_FOUND);
@@ -106,7 +109,7 @@ public class AdminController {
 	// get a Product by specific id
 	@GetMapping("/admin/product/{id}")
 	public ResponseEntity<ProductDTO> getProductById(@PathVariable int id) {
-		ProductDTO ProductDTO = adminService.getProductByID(id);
+		ProductDTO ProductDTO = productService.getProductByID(id);
 		if (ProductDTO != null) {
 			return new ResponseEntity<ProductDTO>(ProductDTO, HttpStatus.OK);
 		}
@@ -118,26 +121,26 @@ public class AdminController {
 	@PostMapping("/admin/product")
 	public ProductDTO addProduct(@Valid @RequestBody ProductDTO ProductDTO) {
 		Product Product = converter.covertToProductEntity(ProductDTO);
-		return adminService.addProduct(Product);
+		return productService.addProduct(Product);
 	}
 
 	// Delete a Product
 	@DeleteMapping("/admin/product/{id}")
 	public void deleteProductById(@PathVariable int id) {
-		adminService.deleteProductById(id);
+		productService.deleteProductById(id);
 	}
 
 	// Update Product
 	@PutMapping("/admin/product/{id}")
 	public void UpdateById(@PathVariable("id") int uid, @Valid @RequestBody Product newProduct) {
-		adminService.UpdateProductById(uid, newProduct);
+		productService.UpdateProductById(uid, newProduct);
 	}
 
 	// category handler----------------------------------------------
 	// Read all the Categories
 	@GetMapping("/admin/category")
 	public ResponseEntity<List<CategoryDTO>> getAllCategory() {
-		List<CategoryDTO> allCategory = adminService.getAllCategories();
+		List<CategoryDTO> allCategory = categoryService.getAllCategories();
 		if (allCategory.size() != 0)
 			return new ResponseEntity<List<CategoryDTO>>(allCategory, HttpStatus.OK);
 		return new ResponseEntity<List<CategoryDTO>>(HttpStatus.NOT_FOUND);
@@ -146,7 +149,7 @@ public class AdminController {
 	// get a Category by specific id
 	@GetMapping("/admin/category/{id}")
 	public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable int id) {
-		CategoryDTO CategoryDTO = adminService.getCategoryByID(id);
+		CategoryDTO CategoryDTO = categoryService.getCategoryByID(id);
 		if (CategoryDTO != null) {
 			return new ResponseEntity<CategoryDTO>(CategoryDTO, HttpStatus.OK);
 		}
@@ -158,19 +161,19 @@ public class AdminController {
 	@PostMapping("/admin/category")
 	public CategoryDTO addCategory(@Valid @RequestBody CategoryDTO CategoryDTO) {
 		Category Category = converter.covertToCategoryEntity(CategoryDTO);
-		return adminService.addCategory(Category);
+		return categoryService.addCategory(Category);
 	}
 
 	// Delete a Category
 	@DeleteMapping("/admin/category/{id}")
 	public void deleteCategoryById(@PathVariable int id) {
-		adminService.deleteCategoryById(id);
+		categoryService.deleteCategoryById(id);
 	}
 
 	// Update Category
 	@PutMapping("/admin/category/{id}")
 	public void UpdateById(@PathVariable("id") int uid, @Valid @RequestBody Category newCategory) {
-		adminService.UpdateCategoryById(uid, newCategory);
+		categoryService.UpdateCategoryById(uid, newCategory);
 	}
 
 	// Update Category

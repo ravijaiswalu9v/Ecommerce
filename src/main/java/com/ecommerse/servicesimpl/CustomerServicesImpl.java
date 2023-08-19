@@ -24,20 +24,11 @@ public class CustomerServicesImpl implements CustomerService {
 	@Autowired
 	Converter converter;
 
+	@Override
+	public CustomerDTO registerCustomer(Customer customer) {
+		return converter.convertToCustomerDTO(customerRepository.save(customer));
+	}
 	
-
-	// adding the user
-	public CustomerDTO registerCustomer(Customer u) {
-		Customer customer = customerRepository.save(u);
-		return converter.convertToCustomerDTO(customer);
-	}
-
-	public CustomerDTO viewDetails(int id) {
-		Customer customer = customerRepository.findById(id).get();
-		return converter.convertToCustomerDTO(customer);
-	}
-
-
 	// update a user
 	public void updateDetails(int id, Customer newCustomer) {
 		Optional<Customer> optional = customerRepository.findById(id);
@@ -52,6 +43,36 @@ public class CustomerServicesImpl implements CustomerService {
 		customerRepository.save(customer);
 	}
 
+	@Override
+	public List<CustomerDTO> getAllCustomer() {
+		List<Customer> customers = customerRepository.findAll();
+		List<CustomerDTO> customerDTOs = new ArrayList<>();
+
+		for (Customer c : customers) {
+			customerDTOs.add(converter.convertToCustomerDTO(c));
+		}
+		return customerDTOs;
+	}
+
+	@Override
+	public CustomerDTO getCustomerByID(int id) {
+		Customer customer = customerRepository.findById(id).get();
+		return converter.convertToCustomerDTO(customer);
+	}
+
+	@Override
+	public String deleteCustomerById(int id) {
+		customerRepository.deleteById(id);
+		return "The customer of ID:" + id + " has been deleted Successfully!..";
+	}
+
+	@Override
+	public void deleteAllCustomers() {
+		customerRepository.deleteAll();
+		
+	}
+
 	
+
 
 }

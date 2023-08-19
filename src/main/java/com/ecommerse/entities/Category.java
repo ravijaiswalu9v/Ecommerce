@@ -29,7 +29,7 @@ public class Category {
 	private String description;
 	
 	@JsonManagedReference
-	@OneToMany(mappedBy = "category" ,cascade = CascadeType.PERSIST)
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "category")
 	@JsonIgnoreProperties
 	private List<Product> product;
 	

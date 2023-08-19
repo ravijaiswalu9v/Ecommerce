@@ -46,6 +46,6 @@ public class Customer {
 	private String address;
 	
 	//one customer have one cart
-	@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "customer")
-	Cart cart;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private Cart cart;
 }

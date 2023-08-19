@@ -46,7 +46,7 @@ public class CustomerController {
 //---------------------------------------------------------
 	//customer can Register
 	@PostMapping("customer/new")
-	public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody CustomerDTO customerDTO) {
+	public ResponseEntity<CustomerDTO> registerCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
 		final Customer customer = converter.covertToCustomerEntity(customerDTO);
 		return new ResponseEntity<CustomerDTO>(customerService.registerCustomer(customer),HttpStatus.OK );
 	}
@@ -55,7 +55,7 @@ public class CustomerController {
 	// customer can see there details
 	@GetMapping("/customer/{id}")
 	public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable int id) {
-		CustomerDTO customerDTO = customerService.viewDetails(id);
+		CustomerDTO customerDTO = customerService.getCustomerByID(id);
 		if (customerDTO!=null) {
 			return new ResponseEntity<CustomerDTO>(customerDTO,HttpStatus.OK );
 		}
@@ -67,4 +67,6 @@ public class CustomerController {
 	public void updateDetails(@PathVariable("id") int uid,@Valid @RequestBody Customer newCustomer) {
 		customerService.updateDetails(uid, newCustomer);
 	}
+	
+	//when customer creates 
 }

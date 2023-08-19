@@ -2,6 +2,8 @@ package com.ecommerse.models;
 
 import java.sql.Blob;
 
+import com.ecommerse.entities.Cart;
+
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -36,4 +38,7 @@ public class CustomerDTO {
 	@NotNull
 	@Size(min=3, max = 200, message="address should have min 50 to max 100 characters")
 	private String address;
+	
+	@NotNull
+	private Cart cart;
 }
